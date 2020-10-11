@@ -6,8 +6,6 @@ const expect = chai.expect;
 let cat = null;
 let batch = null;
 
-
-
 describe("Catalogue", () => {
   beforeEach( () => {
     cat = new Catalogue("Test Catalogue");
@@ -38,5 +36,32 @@ describe("Catalogue", () => {
       expect(result).to.be.undefined;
     });
   });
-  
+  describe("checkReorder",() => {
+    it("should return array when no products need reordering",function(){
+       const result = cat.checkReorders();
+       expect(result.productIds).to.be.empty;
+    });//(Normal) Currently no product needs to be reordered.
+
+    it("should report products that satisfy reorder criteria", function () {
+      cat.addProduct(new Product("B123", "Product 4", 10, 20, 10.0));
+      cat.addProduct(new Product("B124", "Product 5", 10, 30, 10.0));
+      const result = cat.checkReorders();
+      expect(result.productIds).to.have.lengthOf(2);
+      expect(result.productIds).to.have.members(["B123", "B124"]);
+     }); // (Normal) Some products in the catalogue need reordering.
+
+     it("should include products just on their reorder level", function () {
+      cat.addProduct(new Product("B125", "Product 6", 10, 10, 10.0));
+      const result = cat.checkReorders();
+      expect(result.productIds).to.have.members(["B125"]);
+    });//(Exceptional/Boundary) At least one product is on the boundary of its reorder state (quantity in stock == reorder level)
+
+    it("should handle an empty catalogue",function(){
+      cat=new Catalogue("pineapple");
+      const result = cat.checkReorders();
+      expect(result.productIds).to.be.empty;
+    });//(Exceptional/Boundary) The catalogue's product list is empty.
+  });
+
+
 });
