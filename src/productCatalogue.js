@@ -50,12 +50,12 @@ class Catalogue {
 
 
   batchAddProducts(batch){
-    batch.products.forEach(p => 
-      this.addProduct(p)
-    );
-    return batch.products.length;
-    }
+    const validAdditions = batch.products.filter(
+      (product) => product.quantityInStock > 0
+    )
+    validAdditions.forEach((p) => this.addProduct(p) );
+    return validAdditions.length;
   }
-
+}
 module.exports = Catalogue;
 
