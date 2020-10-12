@@ -68,8 +68,8 @@ describe("Catalogue", () => {
       batch = {
         type: 'Batch',
         products: [
-          new Product("A126", "Product 6", 100, 10, 10.0),
-          new Product("A127", "Product 7", 100, 10, 10.0),
+          new Product("A200", "Product 6", 100, 10, 10.0),
+          new Product("A201", "Product 7", 100, 10, 10.0),
         ],
       };
     });
@@ -77,18 +77,26 @@ describe("Catalogue", () => {
     it("should add products for a normal request and return the correct no. added", () => {
       const result = cat.batchAddProducts(batch);
       expect(result).to.equal(2);
-      let addedProduct = cat.findProductById("A126");
+      let addedProduct = cat.findProductById("A200");
       expect(addedProduct).to.not.be.undefined;
-      addedProduct = cat.findProductById("A127");
+      addedProduct = cat.findProductById("A201");
       expect(addedProduct).to.not.be.undefined;
     });
 
     it("should only add products with a non-zero quantity in stock", () => {
-      batch.products.push(new Product("A128", "Product 8", 0, 10, 10.0));
+      batch.products.push(new Product("A202", "Product 8", 0, 10, 10.0));
       const result = cat.batchAddProducts(batch);
       expect(result).to.equal(2);
-      const rejectedProduct = cat.findProductById("A128");
+      const rejectedProduct = cat.findProductById("A202");
       expect(rejectedProduct).to.be.undefined;
     });
+    it("should throw an exception when batch has a current product id", () => {
+      batch.products.push(new Product("A123", "Product 9", 0, 10, 10.0));
+      expect(() => cat.batchAddProducts(batch)).to.throw("Bad Batch");
+      // Target state
+      let rejectedProduct = cat.findProductById("A126");
+      expect(rejectedProduct).to.be.undefined; 
+    });
+  });
 });
-});
+
