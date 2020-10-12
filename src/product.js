@@ -7,6 +7,4 @@ class Product {
         this.reorderLevel = reorderLevel
     }
 }
-
-
 module.exports = Product;
