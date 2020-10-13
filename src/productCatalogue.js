@@ -49,22 +49,56 @@ class Catalogue {
   }
 
 
-  batchAddProducts(batch){
-    const invalidAdditions = batch.products.filter(
+  // batchAddProducts(batch){
+  //   const invalidAdditions = batch.products.filter(
+  //     (product) => this.findProductById(product.id) !== undefined
+  //   );
+  //   if (invalidAdditions.length >0 ){
+  //     throw new Error('Bad Batch')
+  //   }
+    
+  //   const validAdditions = batch.products.filter(
+  //     (product) => product.quantityInStock > 0
+  //   )
+  //   validAdditions.forEach((p) => this.addProduct(p) );
+  //   return validAdditions.length;
+  // }
+  batchAddProducts(batch) {
+    const productIDClash = batch.products.some(
       (product) => this.findProductById(product.id) !== undefined
     );
-    if (invalidAdditions.length >0 ){
-      throw new Error('Bad Batch')
+    if (productIDClash) {
+      throw new Error("Bad Batch");
     }
-    
-    const validAdditions = batch.products.filter(
-      (product) => product.quantityInStock > 0
-    )
-    validAdditions.forEach((p) => this.addProduct(p) );
-    return validAdditions.length;
+    const noProductsAdded = batch.products
+      .filter((product) => product.quantityInStock > 0 )
+      .filter((p) => {
+        this.addProduct(p);
+        return true;
+      })
+      .reduce((acc, p) => acc + 1, 0);
+    return noProductsAdded;
   }
 
-
+  speSearch(neededObj){
+    const result = { type: "Search", productIds: [] };
+    if (neededObj.price){
+      result.productIds = this.products
+      .filter((p) => p.price <= neededObj.price)
+      .map(function(p){return p.id});
+    }
+    // else if(neededObj.keyword){
+    //   result.productIds = this.products
+    //     .filter(function(p){
+    //       return p.name.search(neededObj.keyword)>= 0;
+    //     })
+    //     .map(function(p){return p.id;});
+    //   if(result.productIds.length === 0 ){
+    //     throw new Error("Bad Search");
+    //   }
+    // }
+    return result;
+  }
 }
 module.exports = Catalogue;
 

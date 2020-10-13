@@ -10,7 +10,7 @@ describe("Catalogue", () => {
   beforeEach( () => {
     cat = new Catalogue("Test Catalogue");
     cat.addProduct(new Product("A123", "Product 1", 100, 10, 10.0));
-    cat.addProduct(new Product("A124", "Product 2", 100, 10.0));
+    cat.addProduct(new Product("A124", "Product 2", 100, 10, 10.0));
     cat.addProduct(new Product("A125", "Product 3", 100, 10, 10.0));
   });
   describe("findProductById", function () {
@@ -69,11 +69,10 @@ describe("Catalogue", () => {
         type: 'Batch',
         products: [
           new Product("A200", "Product 6", 100, 10, 10.0),
-          new Product("A201", "Product 7", 100, 10, 10.0),
+          new Product("A201", "Product 7", 100, 10, 25.0),
         ],
       };
     });
-    
     it("should add products for a normal request and return the correct no. added", () => {
       const result = cat.batchAddProducts(batch);
       expect(result).to.equal(2);
@@ -97,6 +96,32 @@ describe("Catalogue", () => {
       let rejectedProduct = cat.findProductById("A126");
       expect(rejectedProduct).to.be.undefined; 
     });
+  });
+
+  describe("Search",() => {
+    beforeEach(function () {
+      neededObj = {
+        type: 'Search',
+        products: [
+          new Product("B123", "shoulder bag", 100, 10, 10.0),
+          new Product("B124", "shoes", 100, 10, 25.0),
+          new Product("B125", "shampoo",199, 20, 46.0)
+        ],
+      };
+      cat.batchAddProducts(neededObj);
+    });
+    
+    it("should return products cheaper than $ 25.01", () =>{
+      const result = cat.speSearch({ price: 25.00});
+      expect(result.productIds).to.have.lengthOf(5);
+      expect(result.productIds).to.have.members(["A123","A124","A125","B123","B124"]);
+    });
+
+    // it("should return products cheaper than $ 25.01", () =>{
+    //  const 
+    // });
+
+
   });
 });
 
