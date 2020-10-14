@@ -123,6 +123,9 @@ describe("Catalogue", () => {
      expect(result.productIds).to.have.members(["B123","B124"]);
     });
 
+    it("should throw bad batch when no such keyword in this object",()=>{
+      expect(() => cat.speSearch({keyword:'Weight'}).to.throw("Bad Batch"));
+    });
 
   });
 });

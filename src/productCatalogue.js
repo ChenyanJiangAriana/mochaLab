@@ -91,14 +91,13 @@ class Catalogue {
       result.productIds = this.products
         .filter((p)=>p.name.search(neededObj.keyword)>= 0)
         .map((p)=>p.id);
-    //   if(result.productIds.length === 0 ){
-    //     throw new Error("Bad Search");
-    //   }
-    // }
+      if(result.productIds.length === 0 ){
+        throw new Error("Bad Search");
+      }
+    }
     return result;
   }
 }
 
-}
 module.exports = Catalogue;
 
