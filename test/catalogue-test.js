@@ -112,14 +112,16 @@ describe("Catalogue", () => {
     });
     
     it("should return products cheaper than $ 25.01", () =>{
-      const result = cat.speSearch({ price: 25.00});
+      const result = cat.speSearch({price: 25.0});
       expect(result.productIds).to.have.lengthOf(5);
       expect(result.productIds).to.have.members(["A123","A124","A125","B123","B124"]);
     });
 
-    // it("should return products cheaper than $ 25.01", () =>{
-    //  const 
-    // });
+    it("should returns the products with the keyword in their name", () =>{
+     const result = cat.speSearch({ keyword: 'sho' });
+     expect(result.productIds).to.have.lengthOf(2);
+     expect(result.productIds).to.have.members(["B123","B124"]);
+    });
 
 
   });

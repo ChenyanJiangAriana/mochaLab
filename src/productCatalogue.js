@@ -85,20 +85,20 @@ class Catalogue {
     if (neededObj.price){
       result.productIds = this.products
       .filter((p) => p.price <= neededObj.price)
-      .map(function(p){return p.id});
+      .map((p)=>p.id);
     }
-    // else if(neededObj.keyword){
-    //   result.productIds = this.products
-    //     .filter(function(p){
-    //       return p.name.search(neededObj.keyword)>= 0;
-    //     })
-    //     .map(function(p){return p.id;});
+    else if(neededObj.keyword){
+      result.productIds = this.products
+        .filter((p)=>p.name.search(neededObj.keyword)>= 0)
+        .map((p)=>p.id);
     //   if(result.productIds.length === 0 ){
     //     throw new Error("Bad Search");
     //   }
     // }
     return result;
   }
+}
+
 }
 module.exports = Catalogue;
 

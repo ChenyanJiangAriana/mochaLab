@@ -1,0 +1,15 @@
+[33m602f4df[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m HEAD@{0}: commit: Search function return cheap than 25 euro
+[33m98ea391[m HEAD@{1}: commit: Batch add - all use cases implemented and tested
+[33m6287485[m HEAD@{2}: commit: Batch add - zero quantity cases rejected as per spec
+[33m6453fc3[m HEAD@{3}: commit: Batch add tested for normal case
+[33m7828b31[m HEAD@{4}: commit: Refactored check reorders
+[33m69ba76d[m[33m ([m[1;31morigin/master[m[33m)[m HEAD@{5}: commit: Check reorders fully implemented and tested
+[33m99fd746[m HEAD@{6}: commit: Tested remove and find product by id methods
+[33mac3dc9b[m HEAD@{7}: reset: moving to ac3dc9b
+[33ma6a0045[m HEAD@{8}: reset: moving to a6a0045
+[33mac3dc9b[m HEAD@{9}: reset: moving to ac3dc9b
+[33ma6a0045[m HEAD@{10}: reset: moving to a6a0045
+[33mac3dc9b[m HEAD@{11}: reset: moving to ac3dc9b
+[33mac3dc9b[m HEAD@{12}: commit: Mocha/chai unit test better than customer test in more data set
+[33ma6a0045[m HEAD@{13}: commit: Custom test script demo
+[33m2990a09[m HEAD@{14}: commit (initial): Initial structure
